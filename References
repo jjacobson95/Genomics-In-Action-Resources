@@ -12,40 +12,40 @@ gene expression in lipid production pathways may be informative for large-scale 
 
 Software:
 
-1. 	A. Alexa, J. Rahnenfuhrer, topGO: Enrichment Analysis for Gene Ontology (Bioconductor version: Release (3.13), 2021; https://bioconductor.org/packages/topGO/).
+1. A. Alexa, J. Rahnenfuhrer, topGO: Enrichment Analysis for Gene Ontology (Bioconductor version: Release (3.13), 2021; https://bioconductor.org/packages/topGO/).
 topGO: Enrichment Analysis for Gene Ontology
 
-2. 	S. F. Altschul, W. Gish, W. Miller, E. W. Myers, D. J. Lipman, Basic local alignment search tool. Journal of Molecular Biology. 215, 403–410 (1990).
+2. S. F. Altschul, W. Gish, W. Miller, E. W. Myers, D. J. Lipman, Basic local alignment search tool. Journal of Molecular Biology. 215, 403–410 (1990).
 Basic local alignment search tool (BLAST)
 
-3. 	S. Anders, P. T. Pyl, W. Huber, HTSeq—a Python framework to work with high-throughput sequencing data. Bioinformatics. 31, 166–169 (2015).
+3. S. Anders, P. T. Pyl, W. Huber, HTSeq—a Python framework to work with high-throughput sequencing data. Bioinformatics. 31, 166–169 (2015).
 HTSeq—a Python framework to work with high-throughput sequencing data
 
-4. 	S. Andrews, FastQC:  A Quality Control Tool for High Throughput Sequence Data (2010; http://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
+4. S. Andrews, FastQC:  A Quality Control Tool for High Throughput Sequence Data (2010; http://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
 FastQC:  A Quality Control Tool for High Throughput Sequence Data
 
-5. 	A. M. Bolger, M. Lohse, B. Usadel, Trimmomatic: a flexible trimmer for Illumina sequence data. Bioinformatics. 30, 2114–2120 (2014).
+5. A. M. Bolger, M. Lohse, B. Usadel, Trimmomatic: a flexible trimmer for Illumina sequence data. Bioinformatics. 30, 2114–2120 (2014).
 Trimmomatic: a flexible trimmer for Illumina sequence data
 
-6. 	E. L. Clarke, L. J. Taylor, C. Zhao, A. Connell, J.-J. Lee, B. Fett, F. D. Bushman, K. Bittinger, Sunbeam: an extensible pipeline for analyzing metagenomic sequencing experiments. Microbiome. 7, 46 (2019).
+6. E. L. Clarke, L. J. Taylor, C. Zhao, A. Connell, J.-J. Lee, B. Fett, F. D. Bushman, K. Bittinger, Sunbeam: an extensible pipeline for analyzing metagenomic sequencing experiments. Microbiome. 7, 46 (2019).
 Sunbeam: an extensible pipeline for analyzing metagenomic sequencing experiments
 
-7.   	M. Kanehisa, S. Goto, KEGG: Kyoto Encyclopedia of Genes and Genomes. Nucleic Acids Res. 28, 27–30 (2000).
+7. M. Kanehisa, S. Goto, KEGG: Kyoto Encyclopedia of Genes and Genomes. Nucleic Acids Res. 28, 27–30 (2000).
 KEGG: Kyoto Encyclopedia of Genes and Genomes
 
-8.  	 H. Li, B. Handsaker, A. Wysoker, T. Fennell, J. Ruan, N. Homer, G. Marth, G. Abecasis, R. Durbin, The Sequence Alignment/Map format and SAMtools. Bioinformatics. 25, 2078–2079 (2009).
+8. H. Li, B. Handsaker, A. Wysoker, T. Fennell, J. Ruan, N. Homer, G. Marth, G. Abecasis, R. Durbin, The Sequence Alignment/Map format and SAMtools. Bioinformatics. 25, 2078–2079 (2009).
 The Sequence Alignment/Map format and SAMtools
 
-9.  	 M. I. Love, W. Huber, S. Anders, Moderated estimation of fold change and  dispersion for RNA-seq data with DESeq2. Genome Biol. 15, 550 (2014).
+9. M. I. Love, W. Huber, S. Anders, Moderated estimation of fold change and  dispersion for RNA-seq data with DESeq2. Genome Biol. 15, 550 (2014).
 Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2
 
-10.   	W. Luo, M. S. Friedman, K. Shedden, K. D. Hankenson, P. J. Woolf, GAGE: generally applicable gene set enrichment for pathway analysis. BMC Bioinformatics. 10, 161 (2009).
+10. W. Luo, M. S. Friedman, K. Shedden, K. D. Hankenson, P. J. Woolf, GAGE: generally applicable gene set enrichment for pathway analysis. BMC Bioinformatics. 10, 161 (2009).
 GAGE: generally applicable gene set enrichment for pathway analysis
 
-11.   	S. T. Westreich, M. L. Treiber, D. A. Mills, I. Korf, D. G. Lemay, SAMSA2: a standalone metatranscriptome analysis pipeline. BMC Bioinformatics. 19, 175 (2018).
+11. S. T. Westreich, M. L. Treiber, D. A. Mills, I. Korf, D. G. Lemay, SAMSA2: a standalone metatranscriptome analysis pipeline. BMC Bioinformatics. 19, 175 (2018).
 SAMSA2: a standalone metatranscriptome analysis pipeline
 
-12. 	A. Dobin, C. A. Davis, F. Schlesinger, J. Drenkow, C. Zaleski, S. Jha, P. Batut, M. Chaisson, T. R. Gingeras, STAR: ultrafast universal RNA-seq aligner. Bioinformatics. 29, 15–21 (2013).
+12. A. Dobin, C. A. Davis, F. Schlesinger, J. Drenkow, C. Zaleski, S. Jha, P. Batut, M. Chaisson, T. R. Gingeras, STAR: ultrafast universal RNA-seq aligner. Bioinformatics. 29, 15–21 (2013).
 STAR: ultrafast universal RNA-seq aligner - NCBI
 
 
@@ -65,15 +65,15 @@ Literature:
 
 19. N. L. Poff, M. M. Brison, J. W. Day Jr., “Aquatic ecosystems and global climate change” (1022.5, Pew Center on Global Climate Change, 2002), p. 56.
 
-20.	C. R. Deodato, S. B. Barlow, B. T. Hovde, R. A. Cattolico, Naked Chrysochromulina (Haptophyta) isolates from lake and river ecosystems: An electron microscopic comparison including new observations on the type species of this taxon. Algal Research. 40, 101492 (2019).
+20. C. R. Deodato, S. B. Barlow, B. T. Hovde, R. A. Cattolico, Naked Chrysochromulina (Haptophyta) isolates from lake and river ecosystems: An electron microscopic comparison including new observations on the type species of this taxon. Algal Research. 40, 101492 (2019).
 
-21.	N. W. Bigelow, W. R. Hardin, J. P. Barker, S. A. Ryken, A. C. MacRae, R. A. Cattolico, A Comprehensive GC–MS Sub-Microscale Assay for Fatty Acids and its Applications. J Am Oil Chem Soc. 88, 1329–1338 (2011).
+21. N. W. Bigelow, W. R. Hardin, J. P. Barker, S. A. Ryken, A. C. MacRae, R. A. Cattolico, A Comprehensive GC–MS Sub-Microscale Assay for Fatty Acids and its Applications. J Am Oil Chem Soc. 88, 1329–1338 (2011).
 
-22.	N. Bigelow, J. Barker, S. Ryken, J. Patterson, W. Hardin, S. Barlow, C. Deodato, R. A. Cattolico, Chrysochromulina sp.: A proposed lipid standard for the algal biofuel industry and its application to diverse taxa for screening lipid content. Algal Research. 2, 385–393 (2013).
+22. N. Bigelow, J. Barker, S. Ryken, J. Patterson, W. Hardin, S. Barlow, C. Deodato, R. A. Cattolico, Chrysochromulina sp.: A proposed lipid standard for the algal biofuel industry and its application to diverse taxa for screening lipid content. Algal Research. 2, 385–393 (2013).
 
 23. S. A. Amin, L. R. Hmelo, H. M. van Tol, B. P. Durham, L. T. Carlson, K. R. Heal, R. L. Morales, C. T. Berthiaume, M. S. Parker, B. Djunaedi, A. E. Ingalls, M. R. Parsek, M. A. Moran, E. V. Armbrust, Interaction and signalling between a cosmopolitan phytoplankton and associated bacteria. Nature. 522, 98–101 (2015).
 
-24.	I. Krohn-Molt, M. Alawi, K. U. Förstner, A. Wiegandt, L. Burkhardt, D. Indenbirken, M. Thieß, A. Grundhoff, J. Kehr, A. Tholey, W. R. Streit, Insights into Microalga and Bacteria Interactions of Selected Phycosphere Biofilms Using Metagenomic, Transcriptomic, and Proteomic Approaches. Frontiers in Microbiology. 8, 1941 (2017).
+24. I. Krohn-Molt, M. Alawi, K. U. Förstner, A. Wiegandt, L. Burkhardt, D. Indenbirken, M. Thieß, A. Grundhoff, J. Kehr, A. Tholey, W. R. Streit, Insights into Microalga and Bacteria Interactions of Selected Phycosphere Biofilms Using Metagenomic, Transcriptomic, and Proteomic Approaches. Frontiers in Microbiology. 8, 1941 (2017).
 
 25. J. Lian, R. H. Wijffels, H. Smidt, D. Sipkema, The effect of the algal microbiome on industrial production of microalgae. Microb Biotechnol. 11, 806–818 (2018).
 
@@ -89,7 +89,7 @@ Literature:
 
 31.	J.-P. Cañavate, C. Fernández-Díaz, An appraisal of the variable response of microalgal lipids to culture salinity. Reviews in Aquaculture. n/a, doi:10.1111/raq.12592.
 
-32.	P. Vo Hoang Nhat, H. H. Ngo, W. S. Guo, S. W. Chang, D. D. Nguyen, P. D. Nguyen, X. T. Bui, X. B. Zhang, J. B. Guo, Can algae-based technologies be an affordable green process for biofuel production and wastewater remediation? Bioresource Technology. 256, 491–501 (2018).
+32. P. Vo Hoang Nhat, H. H. Ngo, W. S. Guo, S. W. Chang, D. D. Nguyen, P. D. Nguyen, X. T. Bui, X. B. Zhang, J. B. Guo, Can algae-based technologies be an affordable green process for biofuel production and wastewater remediation? Bioresource Technology. 256, 491–501 (2018).
 
 
 

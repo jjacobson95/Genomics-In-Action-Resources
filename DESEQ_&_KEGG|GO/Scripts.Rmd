@@ -16,7 +16,7 @@ KEGG analysis relies on automatic annotation of C.tobin's protein data using KAA
 
 
 
-Import counts data. 
+Import counts data. Replace "matrix_no_bottom.txt" with a counts matrix of your own, if re-running the metatranscriptomic pipeline. 
 
 ```{r}
 countdata = read.delim("matrix_no_bottom.txt", sep = " ")

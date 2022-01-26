@@ -234,7 +234,7 @@ make_graph_3 = function(gage_results, contrast, savepath) {
   geom_col() + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   coord_flip() + ylab("change") + xlab("set") + ggtitle(contrast) + theme(title = element_text(size = 15)) + theme(axis.text.y = element_text(size = (420/nrow(gage_results_stat)))) + theme(axis.text.x = element_text(size = 20)) + theme(plot.title = element_text(size = 30))
   print(plot)
-  ggsave(filename = paste(contrast, ".png"), path = savepath, plot = plot, width = 32)
+  ggsave(filename = paste(contrast, ".png"), path = savepath, plot = plot, width = 32, height = 20)
   
 }
 ```

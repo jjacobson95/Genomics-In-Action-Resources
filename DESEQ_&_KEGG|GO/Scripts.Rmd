@@ -4,6 +4,7 @@ knitr::opts_chunk$set(echo =TRUE, fig.width = 4, fig.height = 3, fig.asp = 1)
 library(openxlsx)
 library(tidyverse)
 library(DESeq2)
+library(gage)
 ```
 
 
@@ -277,7 +278,7 @@ doitall(eight_vs_zero, "all_8_vs_0", "plots")
 ```
 
 
-
+Check the "plots" file folder to see the GO and KEGG contrast plots. Make additional, subsetted datasets for more comparisons. 
 
 
 

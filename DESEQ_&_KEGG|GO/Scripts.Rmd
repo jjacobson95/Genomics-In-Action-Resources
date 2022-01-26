@@ -1,1 +1,294 @@
 
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo =TRUE, fig.width = 4, fig.height = 3, fig.asp = 1)
+library(openxlsx)
+library(tidyverse)
+library(DESeq2)
+```
+
+
+Instructions: run each cell in order, and the example counts file "matrix_no_bottom.txt" will be processed and result in KEGG and GO plots. Subsetting by timepoint and bacterial presence can increase specificity of contrasts. 
+
+The functions called in 'Doitall' can be applied to any valid DESEQ contrast made using the data resulting from the metatranscriptomic workflow, provided appropriate files are found in the working directory.
+
+KEGG analysis relies on automatic annotation of C.tobin's protein data using KAAS. 
+
+
+
+Import counts data. 
+
+```{r}
+countdata = read.delim("matrix_no_bottom.txt", sep = " ")
+countdata = data.frame(countdata)                 
+colnames(countdata) = colnames(countdata) %>% str_remove(pattern = ".txt") %>% str_remove(pattern = "countsChrtob")
+```
+
+
+Separate Ctobin genes from Bacterial genes
+
+```{r}
+rows = countdata$gene
+rownames(countdata) = rows
+
+gene_names = countdata$gene
+rownames(countdata) = gene_names
+
+is_ctob = startsWith(prefix = "Ctob", countdata$gene)
+just_ctobin = countdata[is_ctob, ] 
+just_bacteria = countdata[!is_ctob, ]
+```
+
+
+Generate DESEQ results
+
+```{r}
+ctobcols = colnames(just_ctobin) %>% strsplit(split = "_")
+ctob_metadata = data.frame(t(data.frame(ctobcols[-1])))
+
+colnames(ctob_metadata) = c("p", "timepoint", "salinity", "replicate")
+ctob_metadata$SampleID = rownames(ctob_metadata)
+rownames(ctob_metadata) = c(1:nrow(ctob_metadata))
+
+
+just_bacteria = subset(just_bacteria, select = -gene)
+just_ctobin = subset(just_ctobin, select = -gene)
+
+ddsMat = DESeqDataSetFromMatrix(just_ctobin, ctob_metadata, design = ~ salinity * timepoint * p)
+dds<-DESeq(ddsMat)
+keep <- rowSums(counts(dds)) >= 10
+dds <- dds[keep,]
+
+```
+
+
+
+
+
+Find KEGG pathways 
+
+```{r}
+
+find_pathways_ctobin <- function(comparison) {
+  
+kaas_results = read.delim("ctobin_protein_kaas.txt", sep = "\t", header = FALSE)
+kg.ko=kegg.gsets(species = "ko")
+kegg.gs=kg.ko$kg.sets[kg.ko$sigmet.idx]
+
+
+all_DE_for_ctobin = comparison$log2FoldChange
+  
+
+
+names(all_DE_for_ctobin) = rownames(comparison)
+
+ctobin_proteins = read.csv("proteins_85182_725804.csv") %>% dplyr::select(Locus.tag, Protein.product)
+
+
+gene_protein_ko = merge(kaas_results, ctobin_proteins, by.x = 'V1', by.y = 'Protein.product')
+
+gene_protein_ko = subset(gene_protein_ko, V2 != "")
+
+
+just_annotated = all_DE_for_ctobin[gene_protein_ko$Locus.tag]
+names(just_annotated) = gene_protein_ko$V2
+
+tester <- gage(just_annotated, gsets = kegg.gs)
+return(tester)
+
+}
+
+```
+
+
+
+
+
+Find GO results
+
+
+```{r}
+
+find_go_terms = function(comparison) {
+  GO_terms = read_tsv("uniprot-taxonomy_1460289.tab")
+  GOgenes = GO_terms$`Gene names`
+
+
+  GO_terms$`Gene ontology (biological process)`
+  
+  biological_processses = data.frame(gene = GO_terms$`Gene names`, terms = GO_terms$`Gene ontology (biological process)`)
+  cellular_components = data.frame(gene = GO_terms$`Gene names`, terms = GO_terms$`Gene ontology (cellular component)`)
+  molecular_functions = data.frame(gene = GO_terms$`Gene names`, terms = GO_terms$`Gene ontology (molecular function)`)
+  
+  all = list(biological_processses, cellular_components, molecular_functions)
+  
+  
+  all_sets = c()
+  
+  
+  for (set in all) {
+    
+    
+    
+    full_list = list()
+
+    for (entry in 1:nrow(set)) {
+      terms = strsplit(x = set[entry, "terms"], split = ";")
+      terms = lapply(terms, str_trim)
+      gene = set[entry, "gene"]
+      
+      for (ind_go_term in 1:lengths(terms)) {
+        
+        GO_term = terms[[1]][ind_go_term]
+        
+        if (is.na(GO_term)) {
+          next
+        }
+        
+        if (is.null(full_list[GO_term][[1]])) {
+          full_list[GO_term] = list(c(gene))
+          
+        } else {
+          
+          if (gene %in% full_list[x = GO_term][[1]]) {
+            
+            next
+          }
+          new = base::append(full_list[x = GO_term][[1]], values = gene)
+          full_list[GO_term][[1]] = new
+          
+        }
+        
+      }
+      
+      
+    }
+    
+    
+    all_sets = append(all_sets, list(full_list))
+    
+
+    
+  }
+  returner = list()
+  
+  
+  logchange = comparison$log2FoldChange
+  names(logchange) = rownames(comparison)
+  
+  returner["biological_processes"] = list(gage(logchange, gsets = all_sets[[1]]))
+  returner["cellular_components"] = list(gage(logchange, gsets = all_sets[[2]]))
+  returner["molecular_functions"] = list(gage(logchange, gsets = all_sets[[3]]))
+  
+  
+  return(returner)
+  
+}
+
+
+```
+
+
+
+
+
+
+Generate graphs for GO and KEGG results
+
+
+```{r, fig.width=10}
+make_graph_3 = function(gage_results, contrast, savepath) {
+  gage_results_stat = data.frame(gage_results$stats)
+  gage_results_greater = data.frame(gage_results$greater)
+  gage_results_less = data.frame(gage_results$less)
+  gage_results_stat = gage_results_stat[complete.cases(gage_results_stat), ]
+  gage_results_stat$pathway = rownames(gage_results_stat)
+  
+  upsigsubnames = rownames(subset(gage_results_greater, q.val < 0.05))
+  downsigsubnames = rownames(subset(gage_results_less, q.val < 0.05))
+  print(contrast)
+  print(length(upsigsubnames))
+  print(length(downsigsubnames))
+  upoff = sum(gage_results_greater$p.val < 0.1, na.rm = TRUE)
+  downoff = sum(gage_results_less$p.val < 0.1, na.rm = TRUE)
+  
+  
+  
+  
+ 
+  gage_results_stat = gage_results_stat[-c((upoff + 1):(nrow(gage_results_stat) - downoff)), ]
+  gage_results_stat$significance = c(rep("q > 0.05", nrow(gage_results_stat)))
+  
+  if (length(upsigsubnames) > 0) {
+    gage_results_stat[upsigsubnames, ]$significance = "q < 0.05"
+  }
+  if (length(downsigsubnames) > 0) {
+    gage_results_stat[downsigsubnames, ]$significance = "q < 0.05"
+  }
+  #gage_results_stat[upsigsubnames, ]$significance = "p < 0.05"
+  #gage_results_stat[downsigsubnames, ]$significance = "p < 0.05"
+  
+  
+  
+  plot = ggplot(gage_results_stat, mapping = aes(x = reorder(pathway, stat.mean), y = stat.mean, fill = significance)) + scale_fill_manual(values = c("q < 0.05" = "red", "q > 0.05" = "blue"), drop = FALSE) +
+  geom_col() + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  coord_flip() + ylab("change") + xlab("set") + ggtitle(contrast) + theme(title = element_text(size = 15)) + theme(axis.text.y = element_text(size = (420/nrow(gage_results_stat)))) + theme(axis.text.x = element_text(size = 20)) + theme(plot.title = element_text(size = 30))
+  print(plot)
+  ggsave(filename = paste(contrast, ".png"), path = savepath, plot = plot, width = 32)
+  
+}
+```
+
+
+
+
+Run the above functions on a deseq results contrast. 
+
+```{r}
+doitall = function(comparison, contrast, path) {
+  go = find_go_terms(comparison)
+  kegg = find_pathways_ctobin(comparison)
+  
+  make_graph_3(go$biological_processes, paste("go_bio_processes_", contrast), path)
+  make_graph_3(go$cellular_components, paste("go_cell_components_", contrast), path)
+  make_graph_3(go$molecular_functions, paste("go_mol_functions_", contrast), path)
+  make_graph_3(kegg, paste("kegg_pathway_", contrast), path)
+}
+```
+
+
+
+
+Call doitall on a valid contrast
+
+
+```{r}
+eight_vs_thirtytwo = results(dds, contrast = c("salinity", "32mM", "8mM"))
+eight_vs_sixteen = results(dds, contrast = c("salinity", "16mM", "8mM"))
+eight_vs_four = results(dds, contrast = c("salinity", "4mM", "8mM"))
+eight_vs_zero = results(dds, contrast = c("salinity", "0mM", "8mM"))
+
+P3_vs_P5 = results(dds, contrast = c("p", "3", "5"))
+L6_vs_D6 = results(dds, contrast = c("timepoint", "L6", "D6"))
+
+doitall(eight_vs_thirtytwo, "all_8_vs_32", "plots")
+doitall(L6_vs_D6, "all_D6_vs_L6", "plots")
+doitall(P3_vs_P5, "all_P5_vs_P3", "plots")
+doitall(eight_vs_zero, "all_8_vs_0", "plots")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
